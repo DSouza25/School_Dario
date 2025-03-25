@@ -11,34 +11,35 @@ import entities.TecStudent;
 import entities.Universitier;
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List<Student> students = new ArrayList<>();
-        Integer option = 0;
+        Scanner sc = new Scanner(System.in); // Declaração do objeto Scanner pra ler os dados pelo teclado.
+        List<Student> students = new ArrayList<>(); // Declaração de uma nova lista de alunos | serve pra adicionar vários alunos de tipos diferentes em um só lugar.
+        Integer option = 0; // inicializado como zero pra poder dar entrada no While
 
         while (option != 3) {
-            clear();
-            System.out.printf("Enter option number: \n1 - Add new Student\n2 - Show students list\n3 - Exit system\n-> ");
-            option = sc.nextInt();
-            sc.nextLine();
+            clear(); // função que limpa o console pra deixar mais bonitinho só. Pura frescura minha!
+            System.out.printf("Enter option number: \n1 - Add new Student\n2 - Show students list\n3 - Exit system\n-> "); // menu principal do sistema
+            option = sc.nextInt(); // lê a opção do menu que o usuário quer acessar
+            sc.nextLine(); // limpa o buffer que lê os dados pra não dar problema no switch-case (É um pouco complexo, mas eu explico, se quiserem.)
             switch (option) {
-                case 1:
+                case 1: // cadastra um novo aluno
                     clear();
-                    System.out.printf("What the student type? [Tec/Universitier/Postgraduate]");
+                    System.out.printf("What the student type? [Tec/Universitier/Postgraduate]"); // escolhe o tipo de aluno que vai ser cadastrado
                     String type = sc.nextLine();
 
-                    if (type.toUpperCase().charAt(0) == 'T') {
+                    // Toda essa parte funciona como o switch-case, mas decidi fazer com o IF-Else pra verem mais de uma opção de código
+                    if (type.toUpperCase().charAt(0) == 'T') { // caso escolha Tec
                         students.add(addTecStudent(sc));
-                    }else if (type.toUpperCase().charAt(0) == 'U') {
+                    }else if (type.toUpperCase().charAt(0) == 'U') { // caso escolha Universitário
                         students.add(addUniversitier(sc));
-                    }else if (type.toUpperCase().charAt(0) == 'P') {
+                    }else if (type.toUpperCase().charAt(0) == 'P') { // caso escolha Pós-graduando
                         students.add(addPostgraduate(sc));
-                    }else{
+                    }else{ // essa parte é pro caso do usuário maldito escolher uma opção inválida.
                         clear();
                         System.out.println("Option invalid.\n\nPress Enter to return to menu...");
                         sc.nextLine();
                     }
                     break;
-                case 2:
+                case 2: // essa parte imprime a lista de alunos cadastrados com o nome, a média e o status.
                     clear();
                     if(students.size() == 0){
                         System.out.println("No have students registered.\n\nPress Enter to return to menu...");
@@ -52,20 +53,20 @@ public class Main {
                         sc.nextLine();
                     }
                     break;
-                case 3:
+                case 3:// Finaliza o sistema
                     clear();
                     System.out.println("System finished.");
                     break;
-                default:
+                default: // Erro apontado caso o usuário escolha uma opção inválida
                     clear();    
                     System.out.println("Are you crazy? Enter a correct option.\n\nPress enter to return to menu...");
                     sc.nextLine();
                     break;
             }
         }
-        sc.close();
+        sc.close(); // fecha o objeto Scanner porque ele não pode ficar aberto
     }
-    public static Student addTecStudent(Scanner sc){
+    public static Student addTecStudent(Scanner sc){ // método  pra adicionar um Tec
         clear();
         System.out.printf("What the student name? ");
         String name = sc.nextLine();
@@ -77,7 +78,7 @@ public class Main {
         return student;
     }
     
-    public static Student addUniversitier(Scanner sc){
+    public static Student addUniversitier(Scanner sc){// método pra adicionar um Universitário
         clear();
         System.out.printf("What the student name? ");
         String name = sc.nextLine();
@@ -91,7 +92,7 @@ public class Main {
         return student;
     }
 
-    public static Student addPostgraduate(Scanner sc){
+    public static Student addPostgraduate(Scanner sc){// método pra adicionar um Pós-graduando
         clear();
         
         System.out.printf("What the student name? ");
@@ -108,7 +109,7 @@ public class Main {
         return student;
     }
    
-    public static void clear() {
+    public static void clear() {// funcção que limpa o console
         try {
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
